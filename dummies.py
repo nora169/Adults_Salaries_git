@@ -79,6 +79,11 @@ gender_dummies={
   'Male':[1],
   'Female':[0]
  }
+
+
+
+native_country_dummies={'United-States':[1],'Other':[0]}
+
 income_dummies={
   'income_>50K':[1],
   'income_<50K':[0] }

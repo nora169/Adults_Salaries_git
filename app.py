@@ -44,17 +44,20 @@ race=race_dummies[race_selection]
 gender_selection=st.selectbox('gender',['Male','Female'])
 gender =gender_dummies[gender_selection]
 
+country_selection=st.selectbox('native-country',['United-States','Other'])
+country =native_country_dummies[country_selection]
+
 
 #st.write(age,fnlwgt,educational_num,capital_gain,capital_loss,hours_per_week,workclass_selection,workclass,
  #        education_selection,education,marital_status_selection,marital_status,occupation_selection,occupation,relationship_selection,relationship,
   #       race_selection,race,gender_selection,gender)
 data=[age,fnlwgt,educational_num,capital_gain,capital_loss,hours_per_week]
 #st.write(data)
-data=data+ workclass+education+marital_status+occupation+relationship+race+gender
+data=data+ workclass+education+marital_status+occupation+relationship+race+gender+country
 #st.write(data)
 data_scaled=scaler.transform([data])
 result=model.predict(data_scaled)
-st.write('your salary will be:',result )
+st.write('>50k:',result )
 if result == 0:
     result ='<50k'
 else:
