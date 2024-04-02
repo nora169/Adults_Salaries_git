@@ -1,12 +1,13 @@
 import streamlit as st
+import numpy as np
 import pandas as pd
 import joblib 
 from dummies import *
 
 st.title('What influences Adults Salaries')
 st.info('you will just enter some values to predict your salary will be more than 50k or less')
-model=joblib.load('model.h5')
-scaler=joblib.load('scaler.h5')
+
+pipe=joblib.load('pipeline--.h5')
 age=st.number_input("Age: ")
 fnlwgt=st.number_input("fnlwgt: ")
 educational_num=st.number_input("Educational-num: ")
@@ -45,7 +46,7 @@ gender_selection=st.selectbox('gender',['Male','Female'])
 gender =gender_dummies[gender_selection]
 
 country_selection=st.selectbox('native-country',['United-States','Other'])
-country =native_country_dummies[country_selection]
+country= country_dummies[country_selection]
 
 
 #st.write(age,fnlwgt,educational_num,capital_gain,capital_loss,hours_per_week,workclass_selection,workclass,
@@ -55,11 +56,11 @@ data=[age,fnlwgt,educational_num,capital_gain,capital_loss,hours_per_week]
 #st.write(data)
 data=data+ workclass+education+marital_status+occupation+relationship+race+gender+country
 #st.write(data)
-data_scaled=scaler.transform([data])
-result=model.predict(data_scaled)
-st.write('>50k:',result )
+
+result=pipe.predict([data] )
+st.write('is it >50k:',result )
 if result == 0:
-    result ='<50k'
+    result ='<=50k'
 else:
     result='>50k'
 st.write('your salary will be:',result )
